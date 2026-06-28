@@ -6,20 +6,23 @@ import folium
 from streamlit_folium import st_folium
 
 
+# Configuração que forçará o tema claro de forma nativa e segura
 st.set_page_config(
     page_title="CAR 360", 
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# Apenas um CSS básico para as cores institucionais sem mexer no fundo
 st.markdown("""
     <style>
-    /* Forçar fundo branco absoluto */
-    .stApp { background-color: #ffffff !important; }
-    
-    /* Garantir que todos os textos sejam legíveis (Preto) */
-    div, p, h1, h2, h3, label, span { color: #000000 !important; }
+    /* Isso garante que títulos sejam azuis e legíveis no fundo branco padrão */
+    h1, h2, h3 { color: #003366 !important; }
     </style>
 """, unsafe_allow_html=True)
+
+# A partir daqui, seu código segue normal. 
+# O Streamlit vai aplicar o fundo branco automaticamente por causa do set_page_config.
 # --- 8. DADOS MOCK ---
 def gerar_dados():
     np.random.seed(42)

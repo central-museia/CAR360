@@ -20,7 +20,7 @@ if 'persona' not in st.session_state:
 # --- TELA DE SELEÇÃO (CARDS) ---
 if st.session_state.persona is None:
     st.title("CAR 360 - Selecione seu Perfil")
-    st.write("Seu cadastro do CAr ficou mais fácil:")
+    st.write("Seu cadastro no CAR ficou mais fácil:")
     
     col1, col2, col3 = st.columns(3)
     

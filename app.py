@@ -2,7 +2,13 @@ import streamlit as st
 import pandas as pd
 import time
 
+# Logo e Configuração
 st.set_page_config(page_title="CAR 360", layout="wide")
+
+# Insira a linha abaixo, apontando para o seu arquivo
+st.image("logo.png", width=200) 
+
+st.title("CAR 360 - Selecione seu Perfil")
 
 # Inicializa o estado da página
 if 'persona' not in st.session_state:

@@ -6,179 +6,21 @@ import numpy as np
 st.set_page_config(page_title="CAR 360", page_icon="🌎", layout="wide")
 
 st.markdown("""
-<style>
-
-/* ===========================
-   FUNDO
-=========================== */
-
-.stApp{
-    background:#F7F9FC;
-}
-
-/* ===========================
-   SIDEBAR
-=========================== */
-
-section[data-testid="stSidebar"]{
-    background:#0B2343;
-}
-
-section[data-testid="stSidebar"] *{
-    color:white;
-}
-
-/* ===========================
-   TITULOS
-=========================== */
-
-h1{
-    color:#1351B4;
-    font-weight:700;
-}
-
-h2{
-    color:#1351B4;
-}
-
-h3{
-    color:#1F2937;
-}
-
-p, label, div{
-    color:#1F2937;
-}
-
-/* ===========================
-   CONTAINER
-=========================== */
-
-.main .block-container{
-
-    padding-top:2rem;
-    padding-bottom:2rem;
-
-    max-width:1400px;
-
-}
-
-/* ===========================
-   BOTÕES
-=========================== */
-
-.stButton button{
-
-    width:100%;
-    background:#1351B4;
-    color:white;
-    border-radius:10px;
-    border:none;
-    padding:12px;
-
-    font-weight:600;
-
-}
-
-.stButton button:hover{
-
-    background:#2670E8;
-
-}
-
-/* ===========================
-   INPUTS
-=========================== */
-
-input{
-
-    background:white !important;
-    color:black !important;
-
-}
-
-/* ===========================
-   METRICS
-=========================== */
-
-div[data-testid="metric-container"]{
-
-    background:white;
-
-    border-radius:15px;
-
-    padding:20px;
-
-    box-shadow:0px 2px 8px rgba(0,0,0,.08);
-
-    border-left:6px solid #1351B4;
-
-}
-
-/* ===========================
-   EXPANDER
-=========================== */
-
-details{
-
-    background:white;
-
-    border-radius:10px;
-
-    padding:10px;
-
-    border:1px solid #E5E7EB;
-
-}
-
-/* ===========================
-   ALERTAS
-=========================== */
-
-.stAlert{
-
-    border-radius:10px;
-
-}
-
-/* ===========================
-   DATAFRAME
-=========================== */
-
-[data-testid="stDataFrame"]{
-
-    border-radius:12px;
-
-    overflow:hidden;
-
-}
-
-/* ===========================
-   CHAT
-=========================== */
-
-[data-testid="stChatMessage"]{
-
-    background:white;
-
-    border-radius:12px;
-
-    padding:15px;
-
-    border-left:5px solid #1351B4;
-
-}
-
-/* ===========================
-   RADIO
-=========================== */
-
-.stRadio label{
-
-    font-size:16px;
-
-}
-
-</style>
+    <style>
+    /* Fundo Branco */
+    .stApp { background-color: #ffffff !important; }
+    
+    /* Textos em Azul Escuro */
+    h1, h2, h3, p, div { color: #003366 !important; }
+    
+    /* Botões em Verde */
+    div.stButton > button {
+        background-color: #228B22 !important;
+        color: white !important;
+        font-weight: bold;
+        border: none;
+    }
+    </style>
 """, unsafe_allow_html=True)
 
 st.sidebar.title("🌎 CAR 360")

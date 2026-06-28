@@ -7,29 +7,20 @@ from streamlit_folium import st_folium
 
 
 # Configuração que forçará o tema claro de forma nativa e segura
-st.set_page_config(
-    page_title="CAR 360", 
-    layout="wide",
-    initial_sidebar_state="expanded"
-)
+st.set_page_config(page_title="CAR 360", layout="wide")
 
-# Apenas um CSS básico para as cores institucionais sem mexer no fundo
 st.markdown("""
     <style>
-    /* Fundo Branco Gelo */
-    .stApp {
-        background-color: #F7F9FB !important;
-    }
+    /* Fundo Branco Gelo - Limpo e Institucional */
+    .stApp { background-color: #F8F9FA !important; }
     
-    /* Garantir que todos os textos sejam pretos ou cinza escuro para leitura perfeita */
-    h1, h2, h3, h4, p, div, span, label, li {
-        color: #1A1A1A !important;
-    }
+    /* Letras em Preto/Cinza Escuro para leitura perfeita */
+    h1, h2, h3, p, div, label, span { color: #1A1A1A !important; }
     
-    /* Estilização básica dos botões para manter a marca */
+    /* Botões Verde Institucional */
     div.stButton > button {
         background-color: #228B22 !important;
-        color: white !important;
+        color: #FFFFFF !important;
         border: none;
         border-radius: 4px;
         font-weight: 600;

@@ -71,24 +71,24 @@ elif menu=="Gestor":
 else:
     st.header("Arquitetura CAR 360")
     st.code("""BASES OFICIAIS
-SICAR
-Gov.br
-SNCR
-SIGEF
-MapBiomas
-INPE
+    SICAR
+    Gov.br
+    SNCR
+    SIGEF
+    MapBiomas
+    INPE
 
         ↓
 
-Motor de IA Generativa
-Validação
-Score
-Monitoramento
-Recomendações
+    Motor de IA Generativa
+    Validação
+    Score
+    Monitoramento
+    Recomendações
 
         ↓
 
-Produtor | Analista | Gestor
+    Produtor | Analista | Gestor
 """)
 
 elif menu == "Mapa de Risco":

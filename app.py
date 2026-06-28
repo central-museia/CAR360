@@ -16,8 +16,24 @@ st.set_page_config(
 # Apenas um CSS básico para as cores institucionais sem mexer no fundo
 st.markdown("""
     <style>
-    /* Isso garante que títulos sejam azuis e legíveis no fundo branco padrão */
-    h1, h2, h3 { color: #003366 !important; }
+    /* Fundo Branco Gelo */
+    .stApp {
+        background-color: #F7F9FB !important;
+    }
+    
+    /* Garantir que todos os textos sejam pretos ou cinza escuro para leitura perfeita */
+    h1, h2, h3, h4, p, div, span, label, li {
+        color: #1A1A1A !important;
+    }
+    
+    /* Estilização básica dos botões para manter a marca */
+    div.stButton > button {
+        background-color: #228B22 !important;
+        color: white !important;
+        border: none;
+        border-radius: 4px;
+        font-weight: 600;
+    }
     </style>
 """, unsafe_allow_html=True)
 

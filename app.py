@@ -5,96 +5,51 @@ import plotly.express as px
 import folium
 from streamlit_folium import st_folium
 
+import streamlit as st
+import pandas as pd
+import numpy as np
 
-
-# --- 8. DADOS MOCK ---
-def gerar_dados():
-    np.random.seed(42)
-    imoveis = []
-    for i in range(50):
-        score = np.random.randint(20, 100)
-        imoveis.append({
-            'ID': f'CAR-{1000+i}',
-            'Produtor': f'Produtor {i}',
-            'Area': np.random.randint(50, 5000),
-            'Score': score,
-            'Status': 'Regularizado' if score > 70 else ('Atenção' if score > 40 else 'Crítico'),
-            'lat': -15.78 + np.random.uniform(-5, 5),
-            'lon': -47.92 + np.random.uniform(-5, 5),
-            'Sobreposicao': np.random.choice([True, False], p=[0.3, 0.7])
-        })
-    return pd.DataFrame(imoveis)
-
-df = gerar_dados()
-
-# --- 7. SCORE DE CONFIABILIDADE (Lógica) ---
-def calcular_score(dados):
-    score = 40  # Base
-    if dados['sobreposicao']: score -= 30
-    if dados['falta_rl']: score -= 20
-    score += 20 # Localização validada
-    return max(0, min(100, score))
-
-# --- CONFIGURAÇÃO ---
+# Configuração simples e robusta
 st.set_page_config(page_title="CAR 360", layout="wide")
-st.markdown("""<style>.stApp {background-color: #f8f9fa;}</style>""", unsafe_allow_html=True)
 
-menu = st.sidebar.radio("Navegação", ["Início", "Produtor", "Analista", "Gestor"])
+# Título da Plataforma
+st.title("CAR 360 – Inteligência Territorial")
+st.markdown("---")
 
-# --- 3. JORNADA DO PRODUTOR ---
-if menu == "Produtor":
-    st.title("👨‍🌾 Regularização Ambiental")
-    step = st.radio("Etapa", ["Identificação", "Validação", "Finalização"], horizontal=True)
-    
-    if step == "Identificação":
-        cpf = st.text_input("CPF do Proprietário")
-        if st.button("Consultar Base"):
-            st.success("Dados encontrados! Área: 150ha | Bioma: Cerrado")
-    
-    elif step == "Validação":
-        score = 92
-        st.metric("Score de Confiabilidade", f"{score}%")
-        st.progress(score/100)
-        st.warning("IA: Sobreposição detectada na área de Reserva Legal.")
-        if st.button("💬 O que é APP?"):
-            st.info("APP (Área de Preservação Permanente) é uma área protegida, coberta ou não por vegetação nativa, com a função ambiental de preservar os recursos hídricos.")
+# Abas para as jornadas
+tab1, tab2, tab3 = st.tabs(["👨‍🌾 JORNADA DO PRODUTOR", "🧑‍💻 JORNADA DO ANALISTA", "🏛 JORNADA DO GESTOR"])
 
-# --- 4. JORNADA DO ANALISTA ---
-elif menu == "Analista":
-    st.title("🧑‍💻 Fila Inteligente")
+# --- JORNADA DO PRODUTOR ---
+with tab1:
+    st.subheader("Regularização Ambiental Simplificada")
+    cpf = st.text_input("CPF do Produtor", key="cpf")
+    if st.button("Consultar Imóvel", key="btn_produtor"):
+        st.success("Dados carregados com sucesso.")
+        col_a, col_b = st.columns(2)
+        col_a.metric("Área do Imóvel", "120 ha")
+        col_b.metric("Score Ambiental", "85/100")
+        st.info("IA: O cadastro está apto para validação automática.")
+
+# --- JORNADA DO ANALISTA ---
+with tab2:
+    st.subheader("Fila de Prioridades e Risco")
+    st.write("Análise orientada por IA para maior eficiência.")
+    df = pd.DataFrame({'Processo': ['CAR-101', 'CAR-102'], 'Risco': ['Alto', 'Médio']})
+    st.table(df)
+    if st.button("Gerar Parecer Automático", key="btn_analista"):
+        st.warning("IA: Parecer preliminar gerado: Aprovação condicionada.")
+
+# --- JORNADA DO GESTOR ---
+with tab3:
+    st.subheader("Dashboard Executivo Nacional")
     col1, col2, col3 = st.columns(3)
-    col1.metric("Pendentes", len(df[df['Status']=='Crítico']))
+    col1.metric("Cobertura BR", "83%")
+    col2.metric("Processos/mês", "45 mil")
+    col3.metric("Estados Ativos", "22")
     
-    # Mapa
-    m = folium.Map(location=[-15.78, -47.92], zoom_start=4)
-    for _, row in df.iterrows():
-        folium.Marker([row['lat'], row['lon']], popup=row['ID']).add_to(m)
-    st_folium(m, width=800, height=300)
-    
-    st.table(df.head(5))
-    if st.button("Gerar Parecer com IA"):
-        st.success("IA: Sugiro solicitar ajuste de georreferenciamento na área de sobreposição.")
+    st.write("### Onde estamos atuando:")
+    st.bar_chart({'Estados': [80, 95, 60, 40], 'Cobertura': [10, 20, 30, 40]})
 
-# --- 5. JORNADA DO GESTOR ---
-elif menu == "Gestor":
-    st.title("🏛 Painel Nacional")
-    col1, col2 = st.columns(2)
-    fig = px.pie(df, names='Status', title="Distribuição Nacional de Regularidade")
-    col1.plotly_chart(fig)
-    col2.metric("Cobertura CAR", "83%")
-    st.bar_chart(df.groupby('Status')['Area'].sum())
-
-# --- 2. CONCEITO CENTRAL ---
-else:
-    st.title("CAR 360")
-    st.subheader("Plataforma Nacional de Inteligência Territorial")
-    st.write("---")
-    st.write("O CAR360 simplifica a regularização através de automação e transparência.")
-    
-    with st.expander("Ver Arquitetura do Sistema"):
-        st.markdown("""
-        **Camadas:**
-        1. **Bases Oficiais** (SICAR, SNIF)
-        2. **Core CAR360** (IA, Validação, Score)
-        3. **Interface** (Produtor, Analista, Gestor)
-        """)
+# Footer fixo com o conceito central
+st.markdown("---")
+st.caption("CAR 360 | Dados conectados, decisões inteligentes.")

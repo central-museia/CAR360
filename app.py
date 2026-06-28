@@ -18,14 +18,44 @@ st.markdown("""
 menu = st.sidebar.radio("Navegação", ["Início", "Portal do Produtor", "Painel do Analista", "Gestão Nacional", "Mapa de Risco"])
 
 # Lógica das Abas
-if menu=="Início":
-    st.title("CAR 360 – Plataforma Nacional de Inteligência Territorial")
-    st.info("Protótipo para apresentação do Hackathon")
-    c1,c2,c3,c4=st.columns(4)
-    c1.metric("Cadastros","8,1 M","+2,4%")
-    c2.metric("Municípios","5.570")
-    c3.metric("Análises IA","3,2 M","+12%")
-    c4.metric("Cobertura","87%")
+# Dados simulados de pontos de risco ou car para o mapa
+def get_map_data(level):
+    # Cria pontos aleatórios para simular a distribuição no mapa
+    return pd.DataFrame(
+        np.random.randn(100, 2) / ([20, 20] if level == "Brasil" else [2, 2]) + [-15.78, -47.92],
+        columns=['lat', 'lon']
+    )
+
+st.title("CAR 360 – Inteligência Territorial")
+
+# Navegação de Níveis
+nivel = st.radio("Selecione a camada de visão:", ["Brasil", "Estado", "Município"], horizontal=True)
+
+# Indicadores que mudam conforme o nível
+c1, c2, c3 = st.columns(3)
+if nivel == "Brasil":
+    c1.metric("Estados Ativos", "22/27")
+    c2.metric("Cobertura", "87%")
+    c3.metric("Potencial", "1,4M")
+elif nivel == "Estado":
+    c1.metric("Municípios Ativos", "45/144")
+    c2.metric("Cobertura", "62%")
+    c3.metric("Risco Médio", "45k")
+else:
+    c1.metric("Imóveis Sem CAR", "1.200")
+    c2.metric("Área Degradada", "300ha")
+    c3.metric("Prioridade", "Alta")
+
+# Exibição do Mapa Interativo
+st.subheader(f"Visualização: {nivel}")
+st.map(get_map_data(nivel))
+
+# IA Contextual abaixo do mapa
+if nivel == "Brasil":
+    st.info("💡 A IA recomenda priorizar expansão nos estados da região Norte.")
+elif nivel == "Estado":
+    st.warning("⚠️ Atenção: Concentração de pendências detectada no quadrante sul do estado.")
+    
     st.markdown("### Acesso")
     a,b,c=st.columns(3)
     a.button("👨‍🌾 Produtor")

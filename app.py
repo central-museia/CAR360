@@ -75,8 +75,7 @@ else:
                         st.success("Tudo certo! Enviamos um guia passo a passo para o seu celular. É simples e nós vamos te acompanhar.")
 
     # JORNADA ANALISTA
-else:
-    if st.session_state.persona == "Analista":
+    elif st.session_state.persona == "Analista":
         st.title("🧑‍💻 Fila de Análise Inteligente")
     
         # 1. Filtro por Estado
@@ -129,9 +128,9 @@ else:
                 else:
                     st.error("Protocolar auto de infração ou solicitar embargos. Evidência mapeada anexada abaixo.")
 
-            # --- EVIDÊNCIAS ---
-            st.write("📷 **Evidências Automatizadas:**")
-            st.image("https://via.placeholder.com/600x200?text=Evidencias+Tecnicas+do+Processo", caption="Documentos e Imagens Consolidados")
+                # --- EVIDÊNCIAS ---
+                st.write("📷 **Evidências Automatizadas:**")
+                st.image("https://via.placeholder.com/600x200?text=Evidencias+Tecnicas+do+Processo", caption="Documentos e Imagens Consolidados")
     # JORNADA GESTOR
     elif st.session_state.persona == "Gestor":
         st.title("🏛 Painel Executivo Nacional")

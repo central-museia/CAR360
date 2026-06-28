@@ -5,23 +5,22 @@ import numpy as np
 
 st.set_page_config(page_title="CAR 360", page_icon="🌎", layout="wide")
 
-st.markdown("""
-    <style>
-    /* Fundo Branco */
-    .stApp { background-color: #ffffff !important; }
+elif menu == "Arquitetura":
+    st.header("Arquitetura CAR 360")
     
-    /* Textos em Azul Escuro */
-    h1, h2, h3, p, div { color: #003366 !important; }
-    
-    /* Botões em Verde */
-    div.stButton > button {
-        background-color: #228B22 !important;
-        color: white !important;
-        font-weight: bold;
-        border: none;
-    }
-    </style>
-""", unsafe_allow_html=True)
+    # Usamos st.container com estilo para um fundo claro legível
+    st.markdown("""
+        <div style="background-color: #f0f0f0; padding: 20px; border-radius: 10px; border: 1px solid #003366;">
+        <h4 style="color: #003366;">1. BASES OFICIAIS</h4>
+        <p style="color: #003366;">SICAR | Gov.br | SNCR | SIGEF | MapBiomas | INPE</p>
+        <h2 style="text-align: center; color: #003366;">⬇</h2>
+        <h4 style="color: #228B22;">2. CORE CAR 360</h4>
+        <p style="color: #003366;">Motor de IA | Validação | Score | Monitoramento | Recomendações</p>
+        <h2 style="text-align: center; color: #003366;">⬇</h2>
+        <h4 style="color: #003366;">3. PÚBLICO</h4>
+        <p style="color: #003366;">Produtor | Analista | Gestor</p>
+        </div>
+    """, unsafe_allow_html=True)
 
 st.sidebar.title("🌎 CAR 360")
 menu=st.sidebar.radio("Menu",["Início","Produtor","Analista","Gestor","Arquitetura"])

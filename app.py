@@ -5,6 +5,14 @@ import plotly.express as px
 import folium
 from streamlit_folium import st_folium
 
+st.markdown("""
+    <style>
+    .stApp { background-color: #ffffff !important; }
+    h1, h2, h3 { color: #003366 !important; }
+    .stButton > button { background-color: #228B22 !important; color: white !important; }
+    </style>
+""", unsafe_allow_html=True)
+
 # --- 8. DADOS MOCK ---
 def gerar_dados():
     np.random.seed(42)

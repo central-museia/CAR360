@@ -5,10 +5,13 @@ import time
 # Logo e Configuração
 st.set_page_config(page_title="CAR 360", layout="wide")
 
-# Insira a linha abaixo, apontando para o seu arquivo
-st.image("logo.png", width=200) 
+# --- LOGO CENTRALIZADO ---
+# Criamos 3 colunas, o logo vai na do meio (c2)
+col_left, col_center, col_right = st.columns([2, 1, 2])
 
-st.title("CAR 360 - Selecione seu Perfil")
+with col_center:
+    # Aumente o valor de width para deixar o logo maior (ex: 400, 500)
+    st.image("logo.png", width=400)
 
 # Inicializa o estado da página
 if 'persona' not in st.session_state:

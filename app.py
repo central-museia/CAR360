@@ -77,7 +77,7 @@ else:
     # JORNADA ANALISTA
     # --- JORNADA DO ANALISTA ---
     # --- JORNADA DO ANALISTA ---
-    elif st.session_state.persona == "Analista":
+    if st.session_state.persona == "Analista":
         st.title("🧑‍💻 Fila de Análise Inteligente")
     
         # 1. Filtro por Estado

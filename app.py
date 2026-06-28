@@ -99,34 +99,40 @@ else:
             processo_sel = st.selectbox("Selecione o processo para analisar:", df_fila['Processo'])
         
             if st.button("Abrir Processo Completo"):
-                st.divider()
-                st.subheader(f"Análise Detalhada: {processo_sel}")
+            st.divider()
+            st.subheader(f"Análise Detalhada: {processo_sel}")
             
-                # 3. Painel de Dados Consolidados (Integração)
-                col1, col2 = st.columns(2)
-                with col1:
-                    st.write("📍 **Dados Geográficos:**")
-                    st.info("Imagens de satélite processadas (MapBiomas + INPE).")
-                    # Aqui você exibiria as imagens/mapas
-                    st.image("https://via.placeholder.com/400x200?text=Mapa+do+Imovel+e+Sobreposicao", caption="Mapa de Sobreposição")
-            
-                with col2:
-                    st.write("📊 **Dados Oficiais (SICAR/SIGEF):**")
-                    st.write("- Área total: 150ha")
-                    st.write("- APP detectada: 12ha")
-                    st.write("- Reserva Legal: 20% (Conforme lei)")
-                    st.success("IA: Dados validados com o Cadastro Ambiental Rural oficial.")
+            # --- LÓGICA DE DADOS POR PROCESSO ---
+            # Aqui simulamos a carga automática de dados de diferentes sistemas
+            if processo_sel == "CAR-8823": # EXEMPLO: TUDO OK
+                status = "Conforme"
+                msg_ia = "✅ Todos os cruzamentos (SICAR, SIGEF, INCRA) validaram o imóvel."
+            elif processo_sel == "CAR-9912": # EXEMPLO: DIVERGÊNCIA SIGEF
+                status = "Inconsistente"
+                msg_ia = "⚠️ Divergência detectada com o sistema SIGEF: O perímetro do imóvel não coincide com a base fundiária."
+            else: # EXEMPLO: DIVERGÊNCIA MAPBIOMAS
+                status = "Problema"
+                msg_ia = "❌ Alerta: Imagem de satélite mostra supressão de vegetação nativa pós-2008 (Base: MapBiomas)."
 
-                # 4. Decisão Humana
-                st.markdown("### Parecer da IA")
-                st.warning("IA: O cadastro apresenta conformidade técnica com o Código Florestal.")
+            # --- PAINEL DE DADOS ---
+            col1, col2 = st.columns(2)
+            with col1:
+                st.write("📊 **Integração de Sistemas:**")
+                st.write(f"- Status: **{status}**")
+                st.write(msg_ia)
             
-                st.markdown("### Decisão Final do Analista")
-                col_b1, col_b2 = st.columns(2)
-                if col_b1.button("✅ Aprovar Cadastro"):
-                    st.success("Parecer enviado com sucesso!")
-                if col_b2.button("❌ Reprovar / Solicitar Correção"):
-                    st.error("Solicitação de correção enviada ao produtor.")
+            with col2:
+                st.write("💡 **Orientação da IA para o Analista:**")
+                if status == "Conforme":
+                    st.success("O processo está pronto para validação final.")
+                elif status == "Inconsistente":
+                    st.warning("Verificar documento de propriedade no SIGEF. Solicitar retificação se necessário.")
+                else:
+                    st.error("Protocolar auto de infração ou solicitar embargos. Evidência mapeada anexada abaixo.")
+
+            # --- EVIDÊNCIAS ---
+            st.write("📷 **Evidências Automatizadas:**")
+            st.image("https://via.placeholder.com/600x200?text=Evidencias+Tecnicas+do+Processo", caption="Documentos e Imagens Consolidados")
     # JORNADA GESTOR
     elif st.session_state.persona == "Gestor":
         st.title("🏛 Painel Executivo Nacional")

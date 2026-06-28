@@ -57,18 +57,22 @@ else:
                     st.write("IA: Nenhuma inconsistência detectada em relação ao Código Florestal.")
                     
                 elif exemplo == "002 - Sobreposição APP":
-                    st.error("⚠️ Inconsistência Detectada: Sobreposição em APP")
-                    st.write("🔍 **IA CAR 360:** Identificamos que a área de produção agrícola intercepta Área de Preservação Permanente (Lei 12.651/12, Art. 4º).")
-                    st.info("💡 **Ação Sugerida:** Ajustar polígono de cultivo para respeitar a faixa marginal do curso d'água.")
-                    if st.button("Aplicar Ajuste Automático"):
-                        st.success("Polígono reajustado. Novo score: 92/100.")
+                    st.error("⚠️ Identificamos uma área que precisa de correção")
+                    st.write("🔍 **O que acontece:**")
+                    st.write("Uma parte do seu terreno que está sendo usada para plantio ou construção não pode ser usada, porque fica muito perto do rio. A lei protege essa área perto da água.")
+                    st.info("💡 **Como resolver:**")
+                    st.write("O sistema pode corrigir o desenho para você agora mesmo. Assim, seu cadastro fica dentro da regra e você não precisa se preocupar.")
+                    if st.button("Corrigir o desenho do terreno"):
+                        st.success("Pronto! O desenho foi corrigido. Seu cadastro já está em conformidade.")
                         
                 elif exemplo == "003 - Déficit de Reserva Legal":
-                    st.warning("⚠️ Inconsistência Detectada: Déficit de Reserva Legal")
-                    st.write("🔍 **IA CAR 360:** O imóvel apresenta 15% de Reserva Legal, mas o Bioma Cerrado exige 20% (Decreto 7.830/2012).")
-                    st.info("💡 **Ação Sugerida:** Iniciar adesão ao PRA (Programa de Regularização Ambiental) ou compensação via Cota de Reserva Ambiental.")
-                    if st.button("Simular Adesão ao PRA"):
-                        st.success("Termo de compromisso gerado para assinatura.")
+                    st.warning("⚠️ Identificamos que falta um pouco de mata preservada")
+                    st.write("🔍 **O que acontece:**")
+                    st.write("Pelo tamanho da sua terra aqui no Cerrado, a lei pede que uma parte maior do terreno fique com mata preservada (a reserva).")
+                    st.info("💡 **Como resolver:**")
+                    st.write("Nós te ajudamos a resolver isso de um jeito simples. Você pode fazer um plano de plantio ou compensar essa área depois. Quer que a gente organize isso para você?")
+                    if st.button("Quero organizar a área de mata"):
+                        st.success("Tudo certo! Enviamos um guia passo a passo para o seu celular. É simples e nós vamos te acompanhar.")
 
     # JORNADA ANALISTA
     elif st.session_state.persona == "Analista":

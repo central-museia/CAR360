@@ -75,8 +75,7 @@ else:
                         st.success("Tudo certo! Enviamos um guia passo a passo para o seu celular. É simples e nós vamos te acompanhar.")
 
     # JORNADA ANALISTA
-    # --- JORNADA DO ANALISTA ---
-    # --- JORNADA DO ANALISTA ---
+else:
     if st.session_state.persona == "Analista":
         st.title("🧑‍💻 Fila de Análise Inteligente")
     

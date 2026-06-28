@@ -62,13 +62,14 @@ elif menu == "Analista":
 
 # --- WIREFRAME 6 e 7: Gestor ---
 elif menu == "Gestor":
-    st.header("🏛 Painel Nacional de Governança")
-    st.map(pd.DataFrame(np.random.randn(50, 2)/[50, 50] + [-15, -50], columns=['lat', 'lon']))
-    
+    st.header("🏛 Painel do Gestor")
     col1, col2 = st.columns(2)
-    with col1:
-        st.metric("Cobertura CAR", "87%")
-        st.bar_chart(pd.DataFrame({'Dados': [87, 18, 10]}, index=['Cobertura', 'Pendentes', 'Em Validação']))
-    with col2:
-        st.write("### 📢 Recomendação da IA")
-        st.success("Aumentar equipe de análise na região Norte (Pará/MT).")
+    col1.metric("Cobertura CAR", "87%")
+    col2.metric("Pendentes", "18%")
+    st.bar_chart(pd.DataFrame({'Pendências': [18, 10, 72]}, index=['Pendentes', 'Em Validação', 'Analisados']))
+
+elif menu == "Mapa de Risco":
+    st.header("🌍 Mapa de Inteligência Territorial")
+    # Gerando dados fictícios para o mapa
+    map_data = pd.DataFrame(np.random.randn(100, 2) / [50, 50] + [-15.78, -47.92], columns=['lat', 'lon'])
+    st.map(map_data)

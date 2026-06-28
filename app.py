@@ -185,7 +185,7 @@ st.sidebar.title("🌎 CAR 360")
 menu=st.sidebar.radio("Menu",["Início","Produtor","Analista","Gestor","Arquitetura"])
 
 if menu=="Início":
-    st.title("CAR 360 – Plataforma Nacional de Inteligência Territorial")
+    st.title("CAR 360 – Plataforma Inteligência Territorial")
     st.info("Protótipo para apresentação do Hackathon")
     c1,c2,c3,c4=st.columns(4)
     c1.metric("Cadastros","8,1 M","+2,4%")

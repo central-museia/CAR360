@@ -2,74 +2,83 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
+# Configuração de Layout
 st.set_page_config(page_title="CAR 360", layout="wide")
 
-# CSS para o padrão governamental
+# CSS customizado para garantir o visual "Governo Moderno"
 st.markdown("""
     <style>
-    .stButton>button {background-color: #003399; color: white; width: 100%;}
+    .stApp {background-color: #f4f6f8;}
+    .css-1r6slb0 {background-color: #ffffff;}
+    .metric-card {background: white; padding: 20px; border-radius: 10px; border-left: 5px solid #003399;}
     </style>
 """, unsafe_allow_html=True)
 
-# Sidebar de Navegação
+# Navegação
 st.sidebar.image("logo.png", width=150)
-st.sidebar.title("CAR 360")
-menu = st.sidebar.radio("Escolha o seu perfil:", ["Início", "Produtor", "Analista", "Gestor"])
+menu = st.sidebar.radio("Navegação", ["Início", "Produtor", "Analista", "Gestor", "Arquitetura"])
 
-# --- WIREFRAME 1: Tela Inicial ---
+# --- WIREFRAME 1 ---
 if menu == "Início":
-    st.title("Plataforma Nacional de Inteligência Territorial")
-    st.subheader("🌎 Um único ambiente para todo o ecossistema CAR")
-    if st.button("Entrar com Gov.br"):
-        st.info("Autenticação realizada com sucesso!")
-    
-    st.markdown("---")
+    st.title("CAR 360")
+    st.subheader("Plataforma Nacional de Inteligência Territorial")
+    st.info("🌎 Um único ambiente para todo o ecossistema CAR")
+    st.button("Entrar com Gov.br")
+    st.write("---")
+    st.write("### Como deseja acessar?")
+    col1, col2, col3 = st.columns(3)
+    col1.button("👨‍🌾 Produtor Rural"); col2.button("🧑‍💻 Analista Ambiental"); col3.button("🏛 Gestor Público")
     st.write("### Bases Integradas")
-    bases = ["SICAR", "Consulta Pública", "SNIF", "RER", "Gov.br", "Painéis CAR", "Bases Geoespaciais"]
-    for b in bases: st.write(f"✓ {b}")
+    for base in ["SICAR", "Consulta Pública", "SNIF", "RER", "Gov.br", "Painéis CAR", "Bases Geoespaciais"]:
+        st.write(f"✓ {base}")
 
-# --- WIREFRAME 2, 3 e 4: Jornada do Produtor ---
+# --- WIREFRAMES 2, 3, 4 ---
 elif menu == "Produtor":
     st.header("👨‍🌾 Regularização Ambiental")
-    tab1, tab2 = st.tabs(["Identificação", "Validação Inteligente"])
-    
-    with tab1:
-        st.write("### Dados do Proprietário")
-        st.text_input("CPF")
-        if st.button("Confirmar Dados"):
-            st.success("Proprietário, Área e Reserva Legal identificados.")
-            
-    with tab2:
+    with st.expander("Identificação", expanded=True):
+        st.write("✔ CPF | ✔ Gov.br | ✔ Localização")
+    with st.expander("Informações Encontradas"):
+        for item in ["Proprietário", "Área", "Município", "APP", "Reserva Legal", "Hidrografia"]:
+            st.write(f"✔ {item}")
+    if st.button("Confirmar"):
+        st.subheader("Validação Inteligente")
+        st.progress(0.92)
         st.metric("Score de Confiabilidade", "92%")
-        st.progress(92)
-        st.warning("⚠ Existe uma pequena sobreposição. Clique no chat ao lado.")
-        if st.button("💬 Assistente CAR 360"):
-            st.write("**IA:** A legislação determina que áreas de APP devem ser preservadas. Encontramos uma divergência na sua delimitação.")
+        st.warning("⚠ Existe uma pequena sobreposição. Clique para visualizar.")
+        with st.chat_message("assistant"):
+            st.write("**Assistente CAR 360:** A legislação exige preservação de cursos d'água. Identificamos sobreposição na sua área.")
+            st.button("Mostrar no mapa")
 
-# --- WIREFRAME 5: Analista ---
+# --- WIREFRAME 5 ---
 elif menu == "Analista":
     st.header("🧑‍💻 Fila Inteligente")
     c1, c2, c3 = st.columns(3)
-    c1.metric("🔴 Alto risco", 182)
-    c2.metric("🟡 Médio risco", 652)
-    c3.metric("🟢 Baixo risco", 3.542)
-    
-    st.write("### CAR 345781 - Selecionado")
-    st.error("IA detectou: Sobreposição, Divergência documental, APP incompatível")
-    st.info("Parecer: A propriedade apresenta inconsistência na delimitação da APP.")
+    c1.metric("🔴 Alto risco", 182); c2.metric("🟡 Médio risco", 652); c3.metric("🟢 Baixo risco", 3542)
+    st.write("---")
+    st.subheader("Análise: CAR 345781")
+    st.write("IA encontrou: ✔ Sobreposição, ✔ Divergência, ✔ APP incompatível")
+    st.text_area("Parecer preliminar:", "A propriedade apresenta inconsistência na delimitação da APP.")
     col_a, col_b, col_c = st.columns(3)
     col_a.button("Aprovar"); col_b.button("Solicitar Correção"); col_c.button("Encaminhar")
 
-# --- WIREFRAME 6 e 7: Gestor ---
+# --- WIREFRAMES 6 e 7 ---
 elif menu == "Gestor":
-    st.header("🏛 Painel do Gestor")
+    st.header("🏛 Painel Nacional de Governança Territorial")
+    st.map(pd.DataFrame(np.random.randn(20, 2)/50 + [-15, -50], columns=['lat', 'lon']))
     col1, col2 = st.columns(2)
-    col1.metric("Cobertura CAR", "87%")
-    col2.metric("Pendentes", "18%")
-    st.bar_chart(pd.DataFrame({'Pendências': [18, 10, 72]}, index=['Pendentes', 'Em Validação', 'Analisados']))
+    with col1:
+        st.metric("Cobertura CAR", "87%")
+        st.bar_chart(pd.DataFrame({'Valores': [72, 18, 10]}, index=['Analisados', 'Pendentes', 'Em Validação']))
+    with col2:
+        st.subheader("Monitoramento Nacional")
+        st.write("Prioridades: ✔ Municípios sem cadastro, ✔ Sobreposição elevada, ✔ APP crítica")
+        st.success("Recomendação: Aumentar equipe de análise na região Norte.")
 
-elif menu == "Mapa de Risco":
-    st.header("🌍 Mapa de Inteligência Territorial")
-    # Gerando dados fictícios para o mapa
-    map_data = pd.DataFrame(np.random.randn(100, 2) / [50, 50] + [-15.78, -47.92], columns=['lat', 'lon'])
-    st.map(map_data)
+# --- WIREFRAME 8 ---
+elif menu == "Arquitetura":
+    st.header("Arquitetura CAR 360")
+    st.code("BASES OFICIAIS: SICAR, SNIF, Consulta Pública, Gov.br, RER, SIGEF")
+    st.markdown("### ↓")
+    st.success("CAR 360 - Inteligência, Governança, Validação, Score, Monitoramento")
+    st.markdown("### ↓")
+    st.write("👨‍🌾 Produtor | 🧑‍💻 Analista | 🏛 Gestor")

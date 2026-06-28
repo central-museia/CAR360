@@ -79,8 +79,7 @@ else:
         st.title("🧑‍💻 Fila de Análise Inteligente")
     
         # 1. Filtro por Estado
-        estado = st.selectbox("Selecione o Estado para iniciar a análise:", 
-                          ["Selecione...", "MT - Mato Grosso", "PA - Pará", "BA - Bahia"])
+        estado = st.selectbox("Selecione o Estado para iniciar a análise:", ["Selecione...", "MT - Mato Grosso", "PA - Pará", "BA - Bahia"])
     
         if estado != "Selecione...":
             st.write(f"### Processos em: {estado}")
@@ -97,8 +96,8 @@ else:
             processo_sel = st.selectbox("Selecione o processo para analisar:", df_fila['Processo'])
         
             if st.button("Abrir Processo Completo"):
-            st.divider()
-            st.subheader(f"Análise Detalhada: {processo_sel}")
+                st.divider()
+                st.subheader(f"Análise Detalhada: {processo_sel}")
             
             # --- LÓGICA DE DADOS POR PROCESSO ---
             # Aqui simulamos a carga automática de dados de diferentes sistemas

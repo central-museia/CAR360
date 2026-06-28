@@ -7,13 +7,177 @@ st.set_page_config(page_title="CAR 360", page_icon="🌎", layout="wide")
 
 st.markdown("""
 <style>
-.stApp{background:#F4F7FB;}
-section[data-testid="stSidebar"]{background:#0B2343;}
-section[data-testid="stSidebar"] *{color:white;}
-h1,h2,h3{color:#1351B4;}
-.stButton>button{background:#1351B4;color:white;border:none;border-radius:8px;font-weight:700;width:100%}
-div[data-testid="metric-container"]{background:white;border-left:5px solid #1351B4;
-padding:15px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+
+/* ===========================
+   FUNDO
+=========================== */
+
+.stApp{
+    background:#F7F9FC;
+}
+
+/* ===========================
+   SIDEBAR
+=========================== */
+
+section[data-testid="stSidebar"]{
+    background:#0B2343;
+}
+
+section[data-testid="stSidebar"] *{
+    color:white;
+}
+
+/* ===========================
+   TITULOS
+=========================== */
+
+h1{
+    color:#1351B4;
+    font-weight:700;
+}
+
+h2{
+    color:#1351B4;
+}
+
+h3{
+    color:#1F2937;
+}
+
+p, label, div{
+    color:#1F2937;
+}
+
+/* ===========================
+   CONTAINER
+=========================== */
+
+.main .block-container{
+
+    padding-top:2rem;
+    padding-bottom:2rem;
+
+    max-width:1400px;
+
+}
+
+/* ===========================
+   BOTÕES
+=========================== */
+
+.stButton button{
+
+    width:100%;
+    background:#1351B4;
+    color:white;
+    border-radius:10px;
+    border:none;
+    padding:12px;
+
+    font-weight:600;
+
+}
+
+.stButton button:hover{
+
+    background:#2670E8;
+
+}
+
+/* ===========================
+   INPUTS
+=========================== */
+
+input{
+
+    background:white !important;
+    color:black !important;
+
+}
+
+/* ===========================
+   METRICS
+=========================== */
+
+div[data-testid="metric-container"]{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    box-shadow:0px 2px 8px rgba(0,0,0,.08);
+
+    border-left:6px solid #1351B4;
+
+}
+
+/* ===========================
+   EXPANDER
+=========================== */
+
+details{
+
+    background:white;
+
+    border-radius:10px;
+
+    padding:10px;
+
+    border:1px solid #E5E7EB;
+
+}
+
+/* ===========================
+   ALERTAS
+=========================== */
+
+.stAlert{
+
+    border-radius:10px;
+
+}
+
+/* ===========================
+   DATAFRAME
+=========================== */
+
+[data-testid="stDataFrame"]{
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+/* ===========================
+   CHAT
+=========================== */
+
+[data-testid="stChatMessage"]{
+
+    background:white;
+
+    border-radius:12px;
+
+    padding:15px;
+
+    border-left:5px solid #1351B4;
+
+}
+
+/* ===========================
+   RADIO
+=========================== */
+
+.stRadio label{
+
+    font-size:16px;
+
+}
+
 </style>
 """, unsafe_allow_html=True)
 

@@ -37,21 +37,38 @@ else:
         
     st.divider()
 
-    # JORNADA PRODUTOR
+   # JORNADA PRODUTOR
     if st.session_state.persona == "Produtor":
         st.title("👨‍🌾 Jornada do Produtor")
-        simular_erro = st.toggle("Simular Cadastro com Inconsistência")
         
-        # Fluxo simplificado para demonstração
-        cpf = st.text_input("CPF do Proprietário:")
-        if st.button("Consultar Gov.br"):
-            with st.spinner('Validando com bases oficiais...'):
-                time.sleep(1.5)
-            if simular_erro:
-                st.error("⚠️ Pendência: Reserva Legal abaixo do limite.")
-                st.button("Corrigir Automaticamente")
-            else:
-                st.success("✅ Cadastro validado! Score: 95/100")
+        # Simulador de Banco de Dados CAR
+        exemplo = st.selectbox("Selecione um CPF/Imóvel para teste:", 
+                               ["Selecione...", "001 - Regular", "002 - Sobreposição APP", "003 - Déficit de Reserva Legal"])
+        
+        if exemplo != "Selecione...":
+            if st.button("Consultar Bases Oficiais (SICAR/SNIF)"):
+                with st.spinner('Cruzando dados geoespaciais...'):
+                    time.sleep(1.5)
+                
+                # LÓGICA DE DADOS FICTÍCIOS
+                if exemplo == "001 - Regular":
+                    st.success("✅ Cadastro Validado - 100% Conforme")
+                    st.metric("Score de Confiabilidade", "98/100")
+                    st.write("IA: Nenhuma inconsistência detectada em relação ao Código Florestal.")
+                    
+                elif exemplo == "002 - Sobreposição APP":
+                    st.error("⚠️ Inconsistência Detectada: Sobreposição em APP")
+                    st.write("🔍 **IA CAR 360:** Identificamos que a área de produção agrícola intercepta Área de Preservação Permanente (Lei 12.651/12, Art. 4º).")
+                    st.info("💡 **Ação Sugerida:** Ajustar polígono de cultivo para respeitar a faixa marginal do curso d'água.")
+                    if st.button("Aplicar Ajuste Automático"):
+                        st.success("Polígono reajustado. Novo score: 92/100.")
+                        
+                elif exemplo == "003 - Déficit de Reserva Legal":
+                    st.warning("⚠️ Inconsistência Detectada: Déficit de Reserva Legal")
+                    st.write("🔍 **IA CAR 360:** O imóvel apresenta 15% de Reserva Legal, mas o Bioma Cerrado exige 20% (Decreto 7.830/2012).")
+                    st.info("💡 **Ação Sugerida:** Iniciar adesão ao PRA (Programa de Regularização Ambiental) ou compensação via Cota de Reserva Ambiental.")
+                    if st.button("Simular Adesão ao PRA"):
+                        st.success("Termo de compromisso gerado para assinatura.")
 
     # JORNADA ANALISTA
     elif st.session_state.persona == "Analista":

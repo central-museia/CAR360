@@ -158,16 +158,23 @@ else:
         
         with col_info:
             if estado_foco != "Selecione...":
-                # Simulando dados de gargalo por sistema
-                st.info(f"Análise de gargalo para: {estado_foco}")
-                gargalos = pd.DataFrame({
-                    'Sistema': ['SIGEF', 'MapBiomas', 'INCRA'],
-                    'Pendências': [4500, 3200, 1200]
-                })
+                # LÓGICA DE DADOS FICTÍCIOS POR ESTADO
+                if "MT" in estado_foco:
+                    dados = {'Sistema': ['SIGEF', 'MapBiomas', 'INCRA'], 'Pendências': [4500, 3200, 1200]}
+                    sugestao = "O gargalo é o **SIGEF**. Redirecionar 10 analistas."
+                elif "PA" in estado_foco:
+                    dados = {'Sistema': ['SIGEF', 'MapBiomas', 'INCRA'], 'Pendências': [1200, 5800, 2100]}
+                    sugestao = "O gargalo é o **MapBiomas**. Necessário revisão de alertas de desmatamento."
+                else: # BA
+                    dados = {'Sistema': ['SIGEF', 'MapBiomas', 'INCRA'], 'Pendências': [2100, 1100, 3500]}
+                    sugestao = "O gargalo é o **INCRA**. Verificar sobreposições de assentamentos."
+
+                gargalos = pd.DataFrame(dados)
+                st.info(f"Dados consolidados para: {estado_foco}")
                 st.bar_chart(gargalos.set_index('Sistema'))
                 
                 st.write("💡 **Ação recomendada:**")
-                st.write("O maior gargalo está no sistema **SIGEF**. Recomendo redirecionar 10 analistas para a força-tarefa deste sistema nesta região.")
+                st.write(sugestao)
                 
                 if st.button("Ativar Força-Tarefa Automática"):
-                    st.success("Analistas notificados! Foco de atuação redirecionado para a região.")
+                    st.success("Analistas notificados! Foco de atuação redirecionado.")

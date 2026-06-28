@@ -7,29 +7,32 @@ from streamlit_folium import st_folium
 
 st.markdown("""
     <style>
-    /* Fundo da aplicação */
-    .stApp { background-color: #F8F9FA; }
-    
-    /* Títulos e Headers */
-    h1, h2, h3 { color: #003366 !important; font-weight: 700; }
-    
-    /* Botões: Verde institucional com bordas arredondadas */
-    div.stButton > button {
-        background-color: #228B22 !important;
-        color: white !important;
-        border-radius: 8px;
-        border: none;
-        padding: 0.5rem 1rem;
+    /* Força fundo branco para o app todo */
+    .stApp {
+        background-color: #ffffff !important;
     }
     
-    /* Métricas e Cards */
-    [data-testid="stMetricValue"] { color: #003366 !important; }
+    /* Força a cor do texto principal e headers para Azul Marinho (Legibilidade Total) */
+    h1, h2, h3, p, div, span, label {
+        color: #003366 !important;
+        font-family: sans-serif;
+    }
     
-    /* Destaques de Sucesso */
-    .stSuccess { background-color: #E8F5E9 !important; color: #228B22 !important; }
+    /* Ajuste dos botões para contraste verde (marca) com texto branco */
+    div.stButton > button {
+        background-color: #228B22 !important;
+        color: #ffffff !important;
+        border: 2px solid #228B22 !important;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+    
+    /* Ajuste da sidebar */
+    [data-testid="stSidebar"] {
+        background-color: #f0f2f6 !important;
+    }
     </style>
 """, unsafe_allow_html=True)
-
 # --- 8. DADOS MOCK ---
 def gerar_dados():
     np.random.seed(42)

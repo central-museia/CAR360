@@ -20,42 +20,53 @@ st.markdown("---")
 tab1, tab2, tab3 = st.tabs(["👨‍🌾 JORNADA DO PRODUTOR", "🧑‍💻 JORNADA DO ANALISTA", "🏛 JORNADA DO GESTOR"])
 
 # --- JORNADA DO PRODUTOR ---
+# --- JORNADA DO PRODUTOR (INTERATIVA) ---
 with tab1:
-    st.subheader("Regularização Ambiental em 3 Passos")
+    st.subheader("👨‍🌾 Regularização em tempo real")
     
-    # Passo 1: Identificação
-    cpf = st.text_input("1. Informe o CPF do Titular")
-    
-    if cpf:
-        # Simulação de Login e Consulta
-        st.write("🔄 *Consultando base Gov.br e SICAR...*")
-        
-        # Passo 2: Validação Automática
-        st.markdown("### Dados Identificados")
-        col_c, col_d = st.columns(2)
-        col_c.write("**Proprietário:** João Silva")
-        col_d.write("**Área do Imóvel:** 120,5 ha")
-        
-        st.markdown("---")
-        
-        # Onde a IA atua (Explicação simples)
-        st.write("🔍 **IA CAR 360:** Analisando georreferenciamento...")
-        st.progress(75) # Barra de progresso visual
-        
-        # Cards de IA (Explicabilidade)
-        with st.expander("✅ Por que o score é 85?"):
-            st.write("A IA validou sua **Área de Preservação Permanente (APP)** com base em imagens do MapBiomas. Não foram encontradas sobreposições recentes.")
-        
-        with st.expander("⚠️ O que é a Reserva Legal?"):
-            st.write("A Reserva Legal é uma área do seu imóvel que garante o uso sustentável dos recursos naturais. O sistema identificou que a sua área está 100% preservada.")
-            
-        st.metric("Score de Confiabilidade", "85/100")
-        
-        # Passo 3: Finalização
-        st.info("O sistema detectou que seu CAR está apto para validação automática.")
-        if st.button("Finalizar e Enviar para Análise", key="final_prod"):
-            st.success("Enviado! Sua regularização está em análise prioritária pelo analista.")
+    # Gerenciador de passos da jornada
+    if 'step' not in st.session_state:
+        st.session_state.step = 1
 
+    # PASSO 1: Identificação
+    if st.session_state.step == 1:
+        st.write("### Passo 1: Identificação")
+        cpf = st.text_input("Insira seu CPF ou CNPJ:")
+        if st.button("Acessar Gov.br"):
+            st.session_state.step = 2
+            st.rerun()
+
+    # PASSO 2: Consulta e Validação IA
+    elif st.session_state.step == 2:
+        st.write("### Passo 2: Diagnóstico IA")
+        with st.spinner('Consultando SICAR e bases federais...'):
+            import time
+            time.sleep(2) # Simula o processamento
+            st.success("Dados do imóvel recuperados!")
+        
+        col_c, col_d = st.columns(2)
+        col_c.metric("Área Total", "120 ha")
+        col_d.metric("Bioma", "Cerrado")
+        
+        st.info("IA: Identificamos 100% de conformidade com a reserva legal.")
+        
+        if st.button("Próximo: Revisão"):
+            st.session_state.step = 3
+            st.rerun()
+
+    # PASSO 3: Confirmação e Envio
+    elif st.session_state.step == 3:
+        st.write("### Passo 3: Score Final")
+        st.metric("Score de Confiabilidade", "95/100")
+        st.progress(0.95)
+        
+        st.write("O sistema validou o cadastro automaticamente. Tudo pronto para envio.")
+        if st.button("Enviar para Órgão Ambiental"):
+            st.balloons() # Efeito visual de sucesso
+            st.success("Cadastro enviado com sucesso! Protocolo: CAR-2026-X99")
+            if st.button("Reiniciar Teste"):
+                st.session_state.step = 1
+                st.rerun()
 # --- JORNADA DO ANALISTA ---
 # --- JORNADA DO ANALISTA ---
 with tab2:

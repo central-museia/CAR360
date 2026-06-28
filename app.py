@@ -130,11 +130,44 @@ else:
                 # --- EVIDÊNCIAS ---
                 st.write("📷 **Evidências Automatizadas:**")
                 st.image("https://via.placeholder.com/600x200?text=Evidencias+Tecnicas+do+Processo", caption="Documentos e Imagens Consolidados")
+
     # JORNADA GESTOR
     elif st.session_state.persona == "Gestor":
         st.title("🏛 Painel Executivo Nacional")
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Cobertura BR", "83%")
-        col2.metric("Pendentes", "12.400")
-        col3.metric("Estados", "22")
-        st.map(pd.DataFrame({'lat': [-15.78], 'lon': [-47.92]}))
+        
+        # 1. KPIs Estratégicos
+        k1, k2, k3, k4 = st.columns(4)
+        k1.metric("Cobertura BR", "83%")
+        k2.metric("Pendências Totais", "12.400")
+        k3.metric("Estados Ativos", "22")
+        k4.metric("Produtividade Média", "+15%")
+
+        # 2. Mapa Estratégico (Visualização de Risco)
+        st.write("### Mapa de Calor: Áreas com maior acúmulo de pendências")
+        st.map(pd.DataFrame({'lat': [-15.78, -12.5, -3.1], 'lon': [-47.92, -55.0, -60.0]}))
+
+        # 3. Inteligência de Decisão (Onde atuar primeiro?)
+        st.divider()
+        st.write("### Ação Prioritária: Foco em Pendências")
+        
+        col_select, col_info = st.columns([1, 2])
+        
+        with col_select:
+            estado_foco = st.selectbox("Selecione o Estado para ver o gargalo:", 
+                                     ["Selecione...", "MT - Mato Grosso", "PA - Pará", "BA - Bahia"])
+        
+        with col_info:
+            if estado_foco != "Selecione...":
+                # Simulando dados de gargalo por sistema
+                st.info(f"Análise de gargalo para: {estado_foco}")
+                gargalos = pd.DataFrame({
+                    'Sistema': ['SIGEF', 'MapBiomas', 'INCRA'],
+                    'Pendências': [4500, 3200, 1200]
+                })
+                st.bar_chart(gargalos.set_index('Sistema'))
+                
+                st.write("💡 **Ação recomendada:**")
+                st.write("O maior gargalo está no sistema **SIGEF**. Recomendo redirecionar 10 analistas para a força-tarefa deste sistema nesta região.")
+                
+                if st.button("Ativar Força-Tarefa Automática"):
+                    st.success("Analistas notificados! Foco de atuação redirecionado para a região.")

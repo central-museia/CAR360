@@ -8,9 +8,27 @@ st.set_page_config(page_title="CAR 360", layout="wide")
 # CSS customizado para garantir o visual "Governo Moderno"
 st.markdown("""
     <style>
-    .stApp {background-color: #f4f6f8;}
-    .css-1r6slb0 {background-color: #ffffff;}
-    .metric-card {background: white; padding: 20px; border-radius: 10px; border-left: 5px solid #003399;}
+    /* Força o fundo da página principal para um cinza bem claro */
+    .stApp {
+        background-color: #f0f2f6;
+    }
+    /* Força a cor de todos os textos para preto escuro */
+    h1, h2, h3, p, div, span {
+        color: #000000 !important;
+    }
+    /* Ajuste dos botões para ficarem visíveis */
+    .stButton>button {
+        background-color: #003399 !important;
+        color: white !important;
+        border: none;
+        font-weight: bold;
+    }
+    /* Deixa o conteúdo do container bem visível */
+    .main .block-container {
+        background-color: #ffffff;
+        padding: 2rem;
+        border-radius: 10px;
+    }
     </style>
 """, unsafe_allow_html=True)
 

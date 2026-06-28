@@ -21,52 +21,50 @@ tab1, tab2, tab3 = st.tabs(["👨‍🌾 JORNADA DO PRODUTOR", "🧑‍💻 JORN
 
 # --- JORNADA DO PRODUTOR ---
 # --- JORNADA DO PRODUTOR (INTERATIVA) ---
+# --- JORNADA DO PRODUTOR (COMPLETA E TESTÁVEL) ---
 with tab1:
     st.subheader("👨‍🌾 Regularização em tempo real")
     
-    # Gerenciador de passos da jornada
-    if 'step' not in st.session_state:
-        st.session_state.step = 1
+    # Variável de controle para testar:
+    # Mude para True para ver o erro, False para ver o sucesso
+    simular_erro = st.toggle("Simular Cadastro com Inconsistência", value=False)
+    
+    if 'step' not in st.session_state: st.session_state.step = 1
 
     # PASSO 1: Identificação
     if st.session_state.step == 1:
-        st.write("### Passo 1: Identificação")
-        cpf = st.text_input("Insira seu CPF ou CNPJ:")
-        if st.button("Acessar Gov.br"):
+        st.write("### Identificação")
+        cpf = st.text_input("CPF do Proprietário:")
+        if st.button("Consultar Gov.br"):
             st.session_state.step = 2
             st.rerun()
 
-    # PASSO 2: Consulta e Validação IA
+    # PASSO 2: Diagnóstico IA
     elif st.session_state.step == 2:
-        st.write("### Passo 2: Diagnóstico IA")
-        with st.spinner('Consultando SICAR e bases federais...'):
-            import time
-            time.sleep(2) # Simula o processamento
-            st.success("Dados do imóvel recuperados!")
+        st.write("### Diagnóstico IA")
+        with st.spinner('Analisando bases oficiais...'):
+            import time; time.sleep(1.5)
         
-        col_c, col_d = st.columns(2)
-        col_c.metric("Área Total", "120 ha")
-        col_d.metric("Bioma", "Cerrado")
+        if simular_erro:
+            st.error("⚠️ Identificamos uma pendência na sua Reserva Legal.")
+            st.write("🔍 **IA CAR 360:** A área de Reserva Legal está abaixo do limite legal para este bioma.")
+            st.info("💡 **O que fazer:** Clique abaixo para ajustar o polígono automaticamente.")
+            if st.button("Corrigir Polígono"):
+                st.success("Polígono ajustado conforme legislação vigente!")
+        else:
+            st.success("✅ Cadastro validado! Nenhuma inconsistência encontrada.")
+            st.metric("Score de Confiabilidade", "95/100")
         
-        st.info("IA: Identificamos 100% de conformidade com a reserva legal.")
-        
-        if st.button("Próximo: Revisão"):
-            st.session_state.step = 3
-            st.rerun()
+        col_voltar, col_prox = st.columns([1, 4])
+        if col_voltar.button("Voltar"): st.session_state.step = 1; st.rerun()
+        if not simular_erro and col_prox.button("Prosseguir"): st.session_state.step = 3; st.rerun()
 
-    # PASSO 3: Confirmação e Envio
+    # PASSO 3: Confirmação
     elif st.session_state.step == 3:
-        st.write("### Passo 3: Score Final")
-        st.metric("Score de Confiabilidade", "95/100")
-        st.progress(0.95)
-        
-        st.write("O sistema validou o cadastro automaticamente. Tudo pronto para envio.")
-        if st.button("Enviar para Órgão Ambiental"):
-            st.balloons() # Efeito visual de sucesso
-            st.success("Cadastro enviado com sucesso! Protocolo: CAR-2026-X99")
-            if st.button("Reiniciar Teste"):
-                st.session_state.step = 1
-                st.rerun()
+        st.write("### Finalização")
+        st.balloons()
+        st.success("Cadastro enviado com sucesso!")
+        if st.button("Novo Consulta"): st.session_state.step = 1; st.rerun()
 # --- JORNADA DO ANALISTA ---
 # --- JORNADA DO ANALISTA ---
 with tab2:

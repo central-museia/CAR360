@@ -5,9 +5,6 @@ import numpy as np
 
 st.set_page_config(page_title="CAR 360", page_icon="🌎", layout="wide")
 
-elif menu == "Arquitetura":
-    st.header("Arquitetura CAR 360")
-    
     # Usamos st.container com estilo para um fundo claro legível
     st.markdown("""
         <div style="background-color: #f0f0f0; padding: 20px; border-radius: 10px; border: 1px solid #003366;">

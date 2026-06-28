@@ -57,37 +57,51 @@ elif menu=="Analista":
     a.button("Aprovar")
     b.button("Solicitar Correção")
     c.button("Encaminhar")
-elif menu=="Gestor":
-    st.header("🏛 Painel Executivo")
-    m1,m2,m3,m4=st.columns(4)
-    m1.metric("Cobertura","87%")
-    m2.metric("Pendências","842 mil")
-    m3.metric("Municípios críticos","314")
-    m4.metric("Alertas IA","18.245")
-    df=pd.DataFrame(np.random.randn(100,2)/30+[-15,-50],columns=["lat","lon"])
-    st.map(df)
-    st.bar_chart(pd.DataFrame({"Cadastros":[72,18,10]},index=["Analisados","Pendentes","Validação"]))
-    st.success("Recomendação da IA: priorizar reforço operacional na Região Norte.")
-else:
-    st.header("Arquitetura CAR 360")
-    st.code("""BASES OFICIAIS
-    SICAR
-    Gov.br
-    SNCR
-    SIGEF
-    MapBiomas
-    INPE
+st.title("🏛 Painel Executivo de Governança Territorial")
 
-        ↓
+# Simulação de dados em níveis
+data = {
+    'Brasil': {'Imoveis': 12000000, 'CAR': 8000000, 'Analisados': 3000000, 'Pendentes': 5000000, 'Risco_Alta': 182000},
+    'Estado': {'Imoveis': 2000000, 'CAR': 1500000, 'Analisados': 600000, 'Pendentes': 900000, 'Risco_Alta': 45000},
+    'Municipio': {'Imoveis': 5000, 'CAR': 4200, 'Analisados': 1200, 'Pendentes': 3000, 'Risco_Alta': 120}
+}
 
-    Motor de IA Generativa
-    Validação
-    Score
-    Monitoramento
-    Recomendações
+# Navegação em Níveis
+nivel = st.radio("Nível de Governança", ["Brasil", "Estado", "Municipio"], horizontal=True)
+d = data[nivel]
 
-        ↓
+# Indicadores Estratégicos
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Total Imóveis", f"{d['Imoveis']:,}")
+col2.metric("Com CAR", f"{d['CAR']:,}")
+col3.metric("Analisados", f"{d['Analisados']:,}")
+col4.metric("Pendentes", f"{d['Pendentes']:,}")
 
-    Produtor | Analista | Gestor
-""")
+st.write("---")
 
+# Mapa de Risco e Fila Inteligente
+c1, c2 = st.columns([2, 1])
+with c1:
+    st.subheader(f"Mapa de Risco - {nivel}")
+    map_data = pd.DataFrame(np.random.randn(50, 2)/50 + [-15.78, -47.92], columns=['lat', 'lon'])
+    st.map(map_data)
+
+with c2:
+    st.subheader("Fila por Prioridade")
+    st.error(f"🔴 Alta Prioridade: {d['Risco_Alta']:,}")
+    st.warning("🟡 Média Prioridade: 250.000")
+    st.success("🟢 Baixa Prioridade: 400.000")
+    st.write("---")
+    st.info("**IA Generativa:** Aumentar equipe de análise na região Norte devido ao desmatamento recente.")
+
+# Arquitetura do Motor de Governança
+with st.expander("⚙️ Ver Arquitetura do Motor de Governança"):
+    st.markdown("""
+    **Fluxo de Inteligência:**
+    1. **Bases Públicas** (SICAR, SNIF, SIGEF) 
+    2. ➔ **Integração e Padronização** 3. ➔ **Motor Analítico (IA)** 4. ➔ **Governança Territorial** 5. ➔ **Tomada de Decisão**
+    """)
+
+# Footer informativo
+st.write("---")
+st.caption("CAR 360 - Dados conectados, decisões inteligentes. | Versão 2026")

@@ -14,14 +14,22 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Logo e Sidebar
-st.sidebar.image("logo.png", width=200)
+# Logo e Sidebar (Usando apenas 'logo.png')
+try:
+    st.sidebar.image("logo.png", width=200)
+except:
+    st.sidebar.write("### CAR 360")
+
 menu = st.sidebar.radio("Navegação", ["Início", "Portal do Produtor", "Painel do Analista", "Gestão Nacional", "Mapa de Risco"])
 
 # Lógica das Abas
 if menu == "Início":
     st.title("CAR 360 - Plataforma de Inteligência Territorial")
-    st.image("ChatGPT Image 28 de jun. de 2026, 11_44_52.png", width=300)
+    # Tente carregar a imagem principal, se falhar, apenas escreve o nome
+    try:
+        st.image("logo.png", width=300)
+    except:
+        st.write("Bem-vindo ao CAR 360")
     st.write("Dados conectados, decisões inteligentes.")
 
 elif menu == "Portal do Produtor":

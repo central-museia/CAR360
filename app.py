@@ -75,12 +75,57 @@ else:
                         st.success("Tudo certo! Enviamos um guia passo a passo para o seu celular. É simples e nós vamos te acompanhar.")
 
     # JORNADA ANALISTA
-    elif st.session_state.persona == "Analista":
-        st.title("🧑‍💻 Fila de Análise Inteligente")
-        df = pd.DataFrame({'Processo': ['CAR-101', 'CAR-102'], 'Risco': ['Alto', 'Médio']})
-        st.dataframe(df, use_container_width=True)
-        if st.button("Gerar Parecer IA"):
-            st.info("IA: Sugiro aprovação condicionada.")
+    # --- JORNADA DO ANALISTA ---
+elif st.session_state.persona == "Analista":
+    st.title("🧑‍💻 Fila de Análise Inteligente")
+    
+    # 1. Filtro por Estado
+    estado = st.selectbox("Selecione o Estado para iniciar a análise:", 
+                          ["Selecione...", "MT - Mato Grosso", "PA - Pará", "BA - Bahia"])
+    
+    if estado != "Selecione...":
+        st.write(f"### Processos em: {estado}")
+        
+        # 2. Tabela de Prioridades (Fila Automática)
+        # Em um sistema real, aqui entraria a integração com o banco de dados
+        df_fila = pd.DataFrame({
+            'Processo': ['CAR-8823', 'CAR-9912', 'CAR-1022'],
+            'Risco': ['Alto', 'Médio', 'Baixo'],
+            'Solicitante': ['João da Silva', 'Maria Souza', 'Fazenda Rio Verde']
+        })
+        st.dataframe(df_fila, use_container_width=True)
+        
+        processo_sel = st.selectbox("Selecione o processo para analisar:", df_fila['Processo'])
+        
+        if st.button("Abrir Processo Completo"):
+            st.divider()
+            st.subheader(f"Análise Detalhada: {processo_sel}")
+            
+            # 3. Painel de Dados Consolidados (Integração)
+            col1, col2 = st.columns(2)
+            with col1:
+                st.write("📍 **Dados Geográficos:**")
+                st.info("Imagens de satélite processadas (MapBiomas + INPE).")
+                # Aqui você exibiria as imagens/mapas
+                st.image("https://via.placeholder.com/400x200?text=Mapa+do+Imovel+e+Sobreposicao", caption="Mapa de Sobreposição")
+            
+            with col2:
+                st.write("📊 **Dados Oficiais (SICAR/SIGEF):**")
+                st.write("- Área total: 150ha")
+                st.write("- APP detectada: 12ha")
+                st.write("- Reserva Legal: 20% (Conforme lei)")
+                st.success("IA: Dados validados com o Cadastro Ambiental Rural oficial.")
+
+            # 4. Decisão Humana
+            st.markdown("### Parecer da IA")
+            st.warning("IA: O cadastro apresenta conformidade técnica com o Código Florestal.")
+            
+            st.markdown("### Decisão Final do Analista")
+            col_b1, col_b2 = st.columns(2)
+            if col_b1.button("✅ Aprovar Cadastro"):
+                st.success("Parecer enviado com sucesso!")
+            if col_b2.button("❌ Reprovar / Solicitar Correção"):
+                st.error("Solicitação de correção enviada ao produtor.")
 
     # JORNADA GESTOR
     elif st.session_state.persona == "Gestor":

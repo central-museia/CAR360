@@ -6,8 +6,6 @@ import folium
 from streamlit_folium import st_folium
 
 
-st.set_page_config(page_title="CAR 360", layout="wide")
-
 
 # --- 8. DADOS MOCK ---
 def gerar_dados():

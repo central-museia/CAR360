@@ -13,30 +13,11 @@ st.set_page_config(
 )
 st.markdown("""
     <style>
-    /* Força fundo branco para o app todo */
-    .stApp {
-        background-color: #ffffff !important;
-    }
+    /* Forçar fundo branco absoluto */
+    .stApp { background-color: #ffffff !important; }
     
-    /* Força a cor do texto principal e headers para Azul Marinho (Legibilidade Total) */
-    h1, h2, h3, p, div, span, label {
-        color: #003366 !important;
-        font-family: sans-serif;
-    }
-    
-    /* Ajuste dos botões para contraste verde (marca) com texto branco */
-    div.stButton > button {
-        background-color: #228B22 !important;
-        color: #ffffff !important;
-        border: 2px solid #228B22 !important;
-        border-radius: 5px;
-        font-weight: bold;
-    }
-    
-    /* Ajuste da sidebar */
-    [data-testid="stSidebar"] {
-        background-color: #f0f2f6 !important;
-    }
+    /* Garantir que todos os textos sejam legíveis (Preto) */
+    div, p, h1, h2, h3, label, span { color: #000000 !important; }
     </style>
 """, unsafe_allow_html=True)
 # --- 8. DADOS MOCK ---

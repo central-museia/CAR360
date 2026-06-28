@@ -91,8 +91,8 @@ else:
     Produtor | Analista | Gestor
 """)
 
-elif menu == "Mapa de Risco":
-    st.header("🌍 Mapa de Inteligência Territorial")
-    # Gerando dados fictícios para o mapa
-    map_data = pd.DataFrame(np.random.randn(100, 2) / [50, 50] + [-15.78, -47.92], columns=['lat', 'lon'])
-    st.map(map_data)
+    elif menu == "Mapa de Risco":
+        st.header("🌍 Mapa de Inteligência Territorial")
+        # Gerando dados fictícios para o mapa
+        map_data = pd.DataFrame(np.random.randn(100, 2) / [50, 50] + [-15.78, -47.92], columns=['lat', 'lon'])
+        st.map(map_data)

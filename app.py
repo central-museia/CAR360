@@ -1,114 +1,94 @@
+
 import streamlit as st
 import pandas as pd
 import numpy as np
 
-# Configuração de Layout
-st.set_page_config(page_title="CAR 360", layout="wide")
+st.set_page_config(page_title="CAR 360", page_icon="🌎", layout="wide")
 
-# CSS customizado para garantir o visual "Governo Moderno"
 st.markdown("""
-    <style>
-    /* Paleta de Cores CAR 360 */
-    :root {
-        --cor-azul: #003366;
-        --cor-verde: #228B22;
-        --fundo: #f4f7f6;
-    }
-    
-    .stApp { background-color: var(--fundo); }
-    
-    h1, h2, h3 { color: var(--cor-azul) !important; font-weight: 700; }
-    
-    /* Botões seguindo a marca */
-    div.stButton > button {
-        background-color: var(--cor-azul) !important;
-        color: white !important;
-        border-radius: 8px;
-        border: none;
-    }
-    
-    /* Cards de Persona e Indicadores */
-    .metric-card {
-        background: white;
-        border: 2px solid var(--cor-azul);
-        border-radius: 12px;
-        padding: 15px;
-    }
-    </style>
+<style>
+.stApp{background:#F4F7FB;}
+section[data-testid="stSidebar"]{background:#0B2343;}
+section[data-testid="stSidebar"] *{color:white;}
+h1,h2,h3{color:#1351B4;}
+.stButton>button{background:#1351B4;color:white;border:none;border-radius:8px;font-weight:700;width:100%}
+div[data-testid="metric-container"]{background:white;border-left:5px solid #1351B4;
+padding:15px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.08);}
+</style>
 """, unsafe_allow_html=True)
 
-# Navegação
-st.sidebar.image("logo.png", width=150)
-menu = st.sidebar.radio("Navegação", ["Início", "Produtor", "Analista", "Gestor", "Arquitetura"])
+st.sidebar.title("🌎 CAR 360")
+menu=st.sidebar.radio("Menu",["Início","Produtor","Analista","Gestor","Arquitetura"])
 
-# --- WIREFRAME 1: Login e Acesso ---
-if menu == "Início":
-    st.image("logo.png", width=150)
-    st.title("CAR 360")
-    st.subheader("Plataforma Nacional de Inteligência Territorial")
-    st.markdown("### 🌎 Um único ambiente para todo o ecossistema CAR")
-    st.button("Entrar com Gov.br")
-    
-    st.write("---")
-    st.write("#### Como deseja acessar?")
-    cols = st.columns(3)
-    cols[0].button("👨‍🌾 Produtor Rural")
-    cols[1].button("🧑‍💻 Analista Ambiental")
-    cols[2].button("🏛 Gestor Público")
-    
-    st.write("#### Bases Integradas")
-    st.write("✓ SICAR | ✓ Consulta Pública | ✓ SNIF | ✓ RER | ✓ Gov.br | ✓ Painéis CAR")
+if menu=="Início":
+    st.title("CAR 360 – Plataforma Nacional de Inteligência Territorial")
+    st.info("Protótipo para apresentação do Hackathon")
+    c1,c2,c3,c4=st.columns(4)
+    c1.metric("Cadastros","8,1 M","+2,4%")
+    c2.metric("Municípios","5.570")
+    c3.metric("Análises IA","3,2 M","+12%")
+    c4.metric("Cobertura","87%")
+    st.markdown("### Acesso")
+    a,b,c=st.columns(3)
+    a.button("👨‍🌾 Produtor")
+    b.button("🧑‍💻 Analista")
+    c.button("🏛 Gestor")
+    st.markdown("### Bases Integradas")
+    st.success("SICAR • Gov.br • SNCR • RER • SIGEF • MapBiomas • INPE • Bases Estaduais")
+elif menu=="Produtor":
+    st.header("👨‍🌾 Jornada do Produtor")
+    with st.expander("Dados encontrados",True):
+        st.write("✔ CPF validado")
+        st.write("✔ Imóvel Rural")
+        st.write("✔ APP")
+        st.write("✔ Reserva Legal")
+    if st.button("Executar Validação Inteligente"):
+        st.progress(92)
+        st.metric("Score","92%")
+        st.warning("Pequena sobreposição detectada.")
+        with st.chat_message("assistant"):
+            st.write("A IA identificou divergência de 0,8 ha em APP. Recomenda-se ajustar o polígono antes do envio.")
+elif menu=="Analista":
+    st.header("🧑‍💻 Central do Analista")
+    x,y,z=st.columns(3)
+    x.metric("🔴 Alto risco","182","-15")
+    y.metric("🟡 Médio","652","+21")
+    z.metric("🟢 Baixo","3542","+108")
+    st.text_area("Parecer IA","A propriedade apresenta divergência em APP e possível sobreposição com imóvel vizinho.",height=140)
+    a,b,c=st.columns(3)
+    a.button("Aprovar")
+    b.button("Solicitar Correção")
+    c.button("Encaminhar")
+elif menu=="Gestor":
+    st.header("🏛 Painel Executivo")
+    m1,m2,m3,m4=st.columns(4)
+    m1.metric("Cobertura","87%")
+    m2.metric("Pendências","842 mil")
+    m3.metric("Municípios críticos","314")
+    m4.metric("Alertas IA","18.245")
+    df=pd.DataFrame(np.random.randn(100,2)/30+[-15,-50],columns=["lat","lon"])
+    st.map(df)
+    st.bar_chart(pd.DataFrame({"Cadastros":[72,18,10]},index=["Analisados","Pendentes","Validação"]))
+    st.success("Recomendação da IA: priorizar reforço operacional na Região Norte.")
+else:
+    st.header("Arquitetura CAR 360")
+    st.code("""BASES OFICIAIS
+SICAR
+Gov.br
+SNCR
+SIGEF
+MapBiomas
+INPE
 
-# --- WIREFRAME 2, 3, 4: Produtor ---
-elif menu == "Produtor":
-    st.header("👨‍🌾 Regularização Ambiental")
-    with st.container():
-        st.write("### Identificação")
-        st.checkbox("CPF")
-        st.checkbox("Gov.br")
-        st.checkbox("Localização")
-    
-    st.success("Informações confirmadas: Proprietário, Área, Município, APP, Reserva Legal, Hidrografia")
-    
-    if st.button("Confirmar Cadastro"):
-        st.metric("Score de Confiabilidade", "92%", delta_color="normal")
-        st.progress(0.92)
-        st.warning("⚠ Sobreposição detectada. Clique para entender.")
-        if st.button("💬 Assistente CAR 360"):
-            st.info("A legislação determina que áreas de APP devem ser preservadas. Clique aqui para ver no mapa.")
+        ↓
 
-# --- WIREFRAME 5: Analista ---
-elif menu == "Analista":
-    st.header("🧑‍💻 Fila do Analista")
-    c1, c2, c3 = st.columns(3)
-    c1.metric("🔴 Alto Risco", 182)
-    c2.metric("🟡 Médio Risco", 652)
-    c3.metric("🟢 Baixo Risco", 3542)
-    
-    st.write("---")
-    st.subheader("Workspace: CAR 345781")
-    st.error("Parecer da IA: Propriedade apresenta inconsistência na delimitação da APP.")
-    
-    b1, b2, b3 = st.columns(3)
-    b1.button("Aprovar"); b2.button("Solicitar Correção"); b3.button("Encaminhar")
+Motor de IA Generativa
+Validação
+Score
+Monitoramento
+Recomendações
 
-# --- WIREFRAME 6, 7: Gestão ---
-elif menu == "Gestor":
-    st.header("🏛 Painel Nacional")
-    st.map(pd.DataFrame(np.random.randn(20, 2)/50 + [-15, -50], columns=['lat', 'lon']))
-    
-    m1, m2 = st.columns(2)
-    m1.metric("Cobertura CAR", "87%")
-    m2.metric("Pendentes", "18%")
-    
-    st.success("IA Recomendação: Aumentar equipe de análise na região Norte.")
+        ↓
 
-# --- WIREFRAME 8: Arquitetura ---
-elif menu == "Arquitetura":
-    st.header("Arquitetura do Sistema")
-    st.info("BASES: SICAR | SNIF | Gov.br | RER | SIGEF")
-    st.markdown("---")
-    st.write("### [ CAR 360 ]")
-    st.write("IA Generativa • Motor de Score • Governança")
-    st.markdown("---")
-    st.write("Produtor ➡️ Analista ➡️ Gestor")
+Produtor | Analista | Gestor
+""")

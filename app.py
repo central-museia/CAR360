@@ -6,18 +6,13 @@ import folium
 from streamlit_folium import st_folium
 
 
-# Configuração que forçará o tema claro de forma nativa e segura
 st.set_page_config(page_title="CAR 360", layout="wide")
 
+# CSS para Fundo Branco Gelo e Letras Pretas
 st.markdown("""
     <style>
-    /* Fundo Branco Gelo - Limpo e Institucional */
     .stApp { background-color: #F8F9FA !important; }
-    
-    /* Letras em Preto/Cinza Escuro para leitura perfeita */
     h1, h2, h3, p, div, label, span { color: #1A1A1A !important; }
-    
-    /* Botões Verde Institucional */
     div.stButton > button {
         background-color: #228B22 !important;
         color: #FFFFFF !important;

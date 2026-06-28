@@ -8,23 +8,7 @@ from streamlit_folium import st_folium
 
 st.set_page_config(page_title="CAR 360", layout="wide")
 
-# CSS para Fundo Branco Gelo e Letras Pretas
-st.markdown("""
-    <style>
-    .stApp { background-color: #F8F9FA !important; }
-    h1, h2, h3, p, div, label, span { color: #1A1A1A !important; }
-    div.stButton > button {
-        background-color: #228B22 !important;
-        color: #FFFFFF !important;
-        border: none;
-        border-radius: 4px;
-        font-weight: 600;
-    }
-    </style>
-""", unsafe_allow_html=True)
 
-# A partir daqui, seu código segue normal. 
-# O Streamlit vai aplicar o fundo branco automaticamente por causa do set_page_config.
 # --- 8. DADOS MOCK ---
 def gerar_dados():
     np.random.seed(42)

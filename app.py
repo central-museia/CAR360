@@ -14,47 +14,38 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Logo e Sidebar
-menu = st.sidebar.radio("Navegação", ["Início", "Portal do Produtor", "Painel do Analista", "Gestão Nacional", "Mapa de Risco"])
+st.title("CAR 360 – Mapa de Atuação Nacional")
+st.write("Visualização estratégica: Onde o ecossistema CAR está integrado.")
 
-# Lógica das Abas
-# Dados simulados de pontos de risco ou car para o mapa
-def get_map_data(level):
-    # Cria pontos aleatórios para simular a distribuição no mapa
-    return pd.DataFrame(
-        np.random.randn(100, 2) / ([20, 20] if level == "Brasil" else [2, 2]) + [-15.78, -47.92],
-        columns=['lat', 'lon']
-    )
+# Navegação de Atuação
+nivel = st.radio("Selecione o nível de atuação:", ["Brasil (Estados)", "Municípios Integrados"], horizontal=True)
 
-st.title("CAR 360 – Inteligência Territorial")
-
-# Navegação de Níveis
-nivel = st.radio("Selecione a camada de visão:", ["Brasil", "Estado", "Município"], horizontal=True)
-
-# Indicadores que mudam conforme o nível
-c1, c2, c3 = st.columns(3)
-if nivel == "Brasil":
-    c1.metric("Estados Ativos", "22/27")
-    c2.metric("Cobertura", "87%")
-    c3.metric("Potencial", "1,4M")
-elif nivel == "Estado":
-    c1.metric("Municípios Ativos", "45/144")
-    c2.metric("Cobertura", "62%")
-    c3.metric("Risco Médio", "45k")
+# Simulação de dados: Pontos de Atuação (Onde o CAR 360 está presente)
+# No Brasil (capitais), nos Municípios (principais polos)
+if nivel == "Brasil (Estados)":
+    # Coordenadas aproximadas das capitais (Atuação consolidada)
+    data = pd.DataFrame({'lat': [-15.79, -3.10, -22.90, -23.55], 'lon': [-47.88, -60.02, -43.17, -46.63]})
+    st.metric("Estados Integrados", "22 de 27")
 else:
-    c1.metric("Imóveis Sem CAR", "1.200")
-    c2.metric("Área Degradada", "300ha")
-    c3.metric("Prioridade", "Alta")
+    # Municípios (mais denso)
+    data = pd.DataFrame(np.random.randn(50, 2)/10 + [-15.78, -47.92], columns=['lat', 'lon'])
+    st.metric("Municípios Ativos", "1.450")
 
-# Exibição do Mapa Interativo
-st.subheader(f"Visualização: {nivel}")
-st.map(get_map_data(nivel))
+st.subheader(f"Área de Cobertura CAR 360: {nivel}")
+st.map(data)
 
-# IA Contextual abaixo do mapa
-if nivel == "Brasil":
-    st.info("💡 A IA recomenda priorizar expansão nos estados da região Norte.")
-elif nivel == "Estado":
-    st.warning("⚠️ Atenção: Concentração de pendências detectada no quadrante sul do estado.")
+# Informação estratégica de expansão
+if nivel == "Brasil (Estados)":
+    st.success("Status: 22 estados integrados. Expansão em curso para os 5 estados pendentes.")
+else:
+    st.info("Status: Expansão municipal ativa em polos agropecuários.")
+
+# Sidebar de Acesso rápido
+st.sidebar.markdown("### Navegação")
+if st.sidebar.button("Início"): st.rerun()
+st.sidebar.button("👨‍🌾 Produtor")
+st.sidebar.button("🧑‍💻 Analista")
+st.sidebar.button("🏛 Gestor")
     
     st.markdown("### Acesso")
     a,b,c=st.columns(3)

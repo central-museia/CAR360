@@ -15,7 +15,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Logo e Sidebar
-st.image("logo.png", width=300)
 menu = st.sidebar.radio("Navegação", ["Início", "Portal do Produtor", "Painel do Analista", "Gestão Nacional", "Mapa de Risco"])
 
 # Lógica das Abas

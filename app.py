@@ -7,9 +7,26 @@ from streamlit_folium import st_folium
 
 st.markdown("""
     <style>
-    .stApp { background-color: #ffffff !important; }
-    h1, h2, h3 { color: #003366 !important; }
-    .stButton > button { background-color: #228B22 !important; color: white !important; }
+    /* Fundo da aplicação */
+    .stApp { background-color: #F8F9FA; }
+    
+    /* Títulos e Headers */
+    h1, h2, h3 { color: #003366 !important; font-weight: 700; }
+    
+    /* Botões: Verde institucional com bordas arredondadas */
+    div.stButton > button {
+        background-color: #228B22 !important;
+        color: white !important;
+        border-radius: 8px;
+        border: none;
+        padding: 0.5rem 1rem;
+    }
+    
+    /* Métricas e Cards */
+    [data-testid="stMetricValue"] { color: #003366 !important; }
+    
+    /* Destaques de Sucesso */
+    .stSuccess { background-color: #E8F5E9 !important; color: #228B22 !important; }
     </style>
 """, unsafe_allow_html=True)
 
